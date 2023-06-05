@@ -11,29 +11,68 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+The AlphabetScrollBar Package is an Simple to use, Customizable Animated AlphabetScrollBar.
+You have to offer an Function where you do the Scrolling by yourself.
+There must be an String Parameter, where you will receive the Current Selected Letter.
+
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+it`s Possible to Change almost Everything.. the Letters that are Used, the Text-Style of the Letters, the Color of the Selected Letter, the Orientation of the Scrollbar (Left, Right, Top, Bottom, Reversed)
+![](example.mov)
 
 ## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
+'''
+AlphabetScrollbar(
+    //onLetterChange is needed and should contain a Function(String letter), where you handle your Scrolling. 
+                  onLetterChange: (value) => setState(() {
+                    _letter = value;
+                  }),
+                  reverse: false, //optional. would Reverse the Order (Z-A).
+                  switchToHorizontal: false, //optional. makes the Scrollbar Horizontally not Verticaly.
+                  
+                  //optional. changes the side to left (if switchToHorizontal also True,Switches to Top)
+                  leftSidedOrTop: false, 
+                ),
+'''
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+u can Simply Use this Widget. all of these Parameters (except the onLetterChange) are Optional.
 
+AllParamsExample:
 ```dart
-const like = 'sample';
+AlphabetScrollbar(
+                  onLetterChange: (value) => setState(() {
+                    _letter = value;
+                  }),
+                  style: const TextStyle(),
+                  duration: const Duration(),
+                  selectedLetterAdditionalSpace: 15.toDouble(),
+                  selectedLetterColor: Colors.red,
+                  padding: EdgeInsets.all(8),
+                  factor: 30,
+                  letterCollection: const ["A","B","C"],
+                  reverse: false,
+                  switchToHorizontal: false,
+                  leftSidedOrTop: false,
+                );
 ```
 
-## Additional information
+Minimal Params Example:
+```dart
+AlphabetScrollbar(
+                  onLetterChange: (value) => setState(() {
+                    _letter = value;
+                  }),
+                );
+```
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+for Scrolling you have to do something like this... (Just an Example)
+```dart
+void _onLetterChangeExample(String letter){
+    var index = _myList.indexWhere((n) =>
+            n.toLowerCase().startsWith(letter.toLowerCase()));
+    _scrollController.scrollTo(_itemHeight * index);
+}
+```
+

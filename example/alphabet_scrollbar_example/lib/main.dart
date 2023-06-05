@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:alphabet_scroll/alphabet_scroll.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +19,7 @@ class _StateMainApp extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Stack(
           children: [
@@ -39,13 +38,16 @@ class _StateMainApp extends State<MainApp> {
             //   child:
             Positioned.fill(
               //right: 8,
-              child: AlphabetScrollbar(
-                onLetterChange: (value) => setState(() {
-                  _letter = value;
-                }),
-                reverse: false,
-                switchToHorizontal: false,
-                leftSidedOrTop: true,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: AlphabetScrollbar(
+                  onLetterChange: (value) => setState(() {
+                    _letter = value;
+                  }),
+                  reverse: false,
+                  switchToHorizontal: false,
+                  leftSidedOrTop: false,
+                ),
               ),
             ),
             // )
