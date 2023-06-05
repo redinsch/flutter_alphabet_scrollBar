@@ -1,4 +1,4 @@
-import 'package:alphabet_scroll/alphabet_scroll.dart';
+import 'package:alphabet_scrollbar/alphabet_scrollbar.dart';
 import 'package:flutter/material.dart';
 
 void main() {

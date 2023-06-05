@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  alphabet_scroll:
+  alphabet_scrollbar:
          path: ../../
 
 dev_dependencies:

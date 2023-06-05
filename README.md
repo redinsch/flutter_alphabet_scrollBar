@@ -22,7 +22,12 @@ it`s Possible to Change almost Everything.. the Letters that are Used, the Text-
 ![](example.mov)
 
 ## Getting started
-'''
+
+```yaml
+alphabet_scrollbar: ^0.0.1
+```
+
+```dart
 AlphabetScrollbar(
     //onLetterChange is needed and should contain a Function(String letter), where you handle your Scrolling. 
                   onLetterChange: (value) => setState(() {
@@ -34,7 +39,7 @@ AlphabetScrollbar(
                   //optional. changes the side to left (if switchToHorizontal also True,Switches to Top)
                   leftSidedOrTop: false, 
                 ),
-'''
+```
 ## Usage
 
 u can Simply Use this Widget. all of these Parameters (except the onLetterChange) are Optional.
