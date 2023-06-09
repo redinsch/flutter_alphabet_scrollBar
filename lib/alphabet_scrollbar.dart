@@ -1,5 +1,8 @@
 library alphabet_scrollbar;
 
+import 'dart:developer';
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 class AlphabetScrollbar extends StatefulWidget {
@@ -15,7 +18,8 @@ class AlphabetScrollbar extends StatefulWidget {
       this.factor = 30,
       this.selectedLetterAdditionalSpace = 15,
       this.duration = const Duration(milliseconds: 200),
-      this.letterCollection});
+      this.letterCollection,
+      this.halfSinWaveLength = 6});
 
   final Color selectedLetterColor;
   final Function(String) onLetterChange;
@@ -28,6 +32,7 @@ class AlphabetScrollbar extends StatefulWidget {
   final double selectedLetterAdditionalSpace;
   final Duration duration;
   final List<String>? letterCollection;
+  final int halfSinWaveLength;
 
   @override
   State<StatefulWidget> createState() => _AlphabetScrollbarState();
@@ -67,6 +72,8 @@ class _AlphabetScrollbarState extends State<AlphabetScrollbar> {
     "Y",
     "Z"
   ];
+  double dy = 0.0;
+  double itemSize = 0.0;
 
   @override
   void initState() {
@@ -157,11 +164,23 @@ class _AlphabetScrollbarState extends State<AlphabetScrollbar> {
       num space = 0;
       TextStyle? selectedLetterStyle = widget.style;
       if (_alphabetScrollActive &&
-          indexOfLetter >= _alphabetIndex - 6 &&
-          indexOfLetter <= _alphabetIndex + 6) {
+          indexOfLetter >= _alphabetIndex - widget.halfSinWaveLength &&
+          indexOfLetter <= _alphabetIndex + widget.halfSinWaveLength) {
         space = indexOfLetter <= _alphabetIndex
-            ? sinWerte[((_alphabetIndex - 6) * (-1)) + indexOfLetter]
-            : sinWerte[(_alphabetIndex + 6) - indexOfLetter];
+            ? sinWerte[((_alphabetIndex - widget.halfSinWaveLength) * (-1)) +
+                indexOfLetter]
+            : sinWerte[
+                (_alphabetIndex + widget.halfSinWaveLength) - indexOfLetter];
+
+        var relativeIndex =
+            ((_alphabetIndex - widget.halfSinWaveLength) * (-1)) +
+                indexOfLetter;
+
+        var deg = relativeIndex - ((dy / itemSize) - _alphabetIndex);
+        var rad = deg * (widget.halfSinWaveLength * 2 + 3) / 180 * math.pi;
+
+        space = math.sin(rad);
+        if (space < 0) space = 0;
         space = space * widget.factor;
         if (indexOfLetter == _alphabetIndex) {
           space = space + widget.selectedLetterAdditionalSpace;
@@ -204,6 +223,7 @@ class _AlphabetScrollbarState extends State<AlphabetScrollbar> {
         ? alphabetContainer.size.width
         : alphabetContainer.size.height;
     final oneItemSize = alphabetContainerSize / _alphabet.length;
+    itemSize = oneItemSize;
     final index = widget.switchToHorizontal
         ? (dx! / oneItemSize).floor()
         : (dy! / oneItemSize).floor();
@@ -228,6 +248,7 @@ class _AlphabetScrollbarState extends State<AlphabetScrollbar> {
 
     setState(() {
       _alphabetIndex = alphabetIndex;
+      this.dy = dy ?? dx!;
     });
 
     widget.onLetterChange(_getLetterByAlphabetID(alphabetIndex));

@@ -6,13 +6,13 @@
     "configurations": [
         {
             "name": "alphabet_scroll_example",
-            "cwd": "example/alphabet_scroll_example",
+            "cwd": "example/alphabet_scrollbar_example",
             "request": "launch",
             "type": "dart"
         },
         {
             "name": "alphabet_scroll_example_web",
-            "cwd": "example/alphabet_scroll_example",
+            "cwd": "example/alphabet_scrollbar_example",
             "request": "launch",
             "type": "dart",
             "args": ["-d" , "chrome"]
