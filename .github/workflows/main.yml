@@ -10,7 +10,5 @@ on:
 # Publish using the reusable workflow from dart-lang.
 jobs:
   publish:
-    steps:
-      - uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
-      - name: Install dependencies
-        run: flutter pub get
+     uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+     
