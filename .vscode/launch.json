@@ -4,6 +4,14 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+    
+        {
+            "name": "alphabet_scroll_example Release(web)",
+            "cwd": "example/alphabet_scrollbar_example",
+            "request": "launch",
+            "type": "dart",
+            "args": ["--release", "chrome"]
+        },
         {
             "name": "alphabet_scroll_example",
             "cwd": "example/alphabet_scrollbar_example",
