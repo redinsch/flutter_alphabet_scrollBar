@@ -25,6 +25,8 @@ it`s Possible to Change almost Everything.. the Letters that are Used, the Text-
 
 #### <a href="https://redinsch.github.io/flutter_alphabet_scrollBar/">Click here for a simple Live-preview</a>
 
+https://github.com/redinsch/flutter_alphabet_scrollBar/assets/1113928/e0599a76-ac3b-4221-b9af-fe0c6590e35a
+
 
 
 ## Getting started
