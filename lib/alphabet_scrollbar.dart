@@ -123,7 +123,7 @@ class _AlphabetScrollbarState extends State<AlphabetScrollbar> {
           ? null
           : (DragUpdateDetails dragUpdateDetails) =>
               _onDragUpdate(dx: dragUpdateDetails.localPosition.dx),
-      child: widget.switchToHorizontal
+      child: Padding(padding: widget.padding ?? const EdgeInsets.all(0) ,child: widget.switchToHorizontal
           ? Row(
               key: _alphabetContainerKey,
               crossAxisAlignment: widget.leftSidedOrTop
@@ -138,22 +138,12 @@ class _AlphabetScrollbarState extends State<AlphabetScrollbar> {
                   ? CrossAxisAlignment.start
                   : CrossAxisAlignment.end,
               children: _getAlphabetScroll(),
-            ),
+            ),)
     );
   }
 
   List<Widget> _getAlphabetScroll() {
     List<Widget> alphabetScroll = [];
-
-    var sinWerte = [
-      0,
-      0.2588190451,
-      0.5,
-      0.7071067812,
-      0.8660254038,
-      0.9659258263,
-      1
-    ];
 
     var alphabetValues =
         widget.reverse ? _alphabet.reversed.toList() : _alphabet;
@@ -165,11 +155,6 @@ class _AlphabetScrollbarState extends State<AlphabetScrollbar> {
       if (_alphabetScrollActive &&
           indexOfLetter >= _alphabetIndex - widget.halfSinWaveLength &&
           indexOfLetter <= _alphabetIndex + widget.halfSinWaveLength) {
-        space = indexOfLetter <= _alphabetIndex
-            ? sinWerte[((_alphabetIndex - widget.halfSinWaveLength) * (-1)) +
-                indexOfLetter]
-            : sinWerte[
-                (_alphabetIndex + widget.halfSinWaveLength) - indexOfLetter];
 
         var relativeIndex =
             ((_alphabetIndex - widget.halfSinWaveLength) * (-1)) +
