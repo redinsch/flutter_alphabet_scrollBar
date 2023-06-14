@@ -7,3 +7,6 @@ Some Bug-Fixes and Code Cleanup stuff
 
 ## 0.0.3
 Smoother Sinus Scroll-Animation
+
+## 0.0.4
+added LiveDemo-Link to Readme

@@ -21,14 +21,16 @@ There must be an String Parameter, where you will receive the Current Selected L
 it`s Possible to Change almost Everything.. the Letters that are Used, the Text-Style of the Letters, the Color of the Selected Letter, the Orientation of the Scrollbar (Left, Right, Top, Bottom, Reversed)
 
 
-<a href="https://redinsch.github.io/flutter_alphabet_scrollBar/">Click here for a simple Live-preview</a>
+
+
+#### <a href="https://redinsch.github.io/flutter_alphabet_scrollBar/">Click here for a simple Live-preview</a>
 
 
 
 ## Getting started
 
 ```yaml
-alphabet_scrollbar: ^0.0.1
+alphabet_scrollbar: ^0.0.4
 ```
 
 ```dart
