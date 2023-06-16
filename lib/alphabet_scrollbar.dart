@@ -85,6 +85,22 @@ class _AlphabetScrollbarState extends State<AlphabetScrollbar> {
     return GestureDetector(
       behavior: HitTestBehavior
           .opaque, // => This dissables Hit-Detection of elements behind..
+      //OnTab,notDrag..
+      onTapDown: widget.switchToHorizontal 
+          ? (details) => {
+            _alphabetScrollActive = true,
+            _onDragUpdate(dx: details.localPosition.dx)
+          } 
+          : (details) => {
+            _alphabetScrollActive = true,
+            _onDragUpdate(dy: details.localPosition.dy)
+          },
+      onTapUp: (details) => {
+                setState(() {
+                  _alphabetScrollActive = false;
+                  _alphabetIndex = 0;
+                })
+              },
       //Vertically
       onVerticalDragStart: widget.switchToHorizontal
           ? null
