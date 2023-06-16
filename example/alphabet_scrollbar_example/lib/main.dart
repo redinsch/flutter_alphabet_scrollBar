@@ -21,6 +21,11 @@ class _StateMainApp extends State<MainApp> {
   bool _leftSidedOrTop = false;
   double _factor = 30;
   double _additional = 15;
+  double _padding = 8;
+  int _red = Colors.red.red;
+  int _green = Colors.red.green;
+  int _blue = Colors.red.blue;
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +37,7 @@ class _StateMainApp extends State<MainApp> {
             Center(
               child: SizedBox(
                 width: 400,
-                height: 300,
+                height: 600,
                 child: Column(
                       
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -93,7 +98,53 @@ class _StateMainApp extends State<MainApp> {
                             })),
                             Text(': SelectedAdditionalSpace (${_additional.floor()})')
                           ],
-                        )
+                        ),
+                        Row(mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Slider(max: 100, value: _padding, onChanged:(value) => setState(() {
+                            _padding = value.floorToDouble();
+                          }),),
+                          Text(': Padding as only oneSide (${_padding.floor()})')
+                        ],),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Slider(max: 255, value: _red.toDouble(), onChanged: (value) => setState(() {
+                                      _red = value.floor();
+                                    })),
+                                    Text(": Red ($_red)")
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Slider(max: 255, value: _green.toDouble(), onChanged: (value) => setState(() {
+                                      _green = value.floor();
+                                    })),
+                                    Text(": Green ($_green)")
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Slider(max: 255, value: _blue.toDouble(), onChanged: (value) => setState(() {
+                                      _blue = value.floor();
+                                    })),
+                                    Text(": Blue ($_blue)")
+                                  ],
+                                ),
+                              ],
+                            ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(height: 120,width: 90, color: Color.fromRGBO(_red, _green, _blue,1),),
+                                )
+                          ],
+                        ),
+                      const Text("And More... (i.e. Text Style, Duration, ...)", style: TextStyle(fontWeight: FontWeight.bold),)
                       ],
                     ),
               ),
@@ -116,7 +167,9 @@ class _StateMainApp extends State<MainApp> {
                 bottom: _switchToHorizontal && !_leftSidedOrTop ? 0 : null,
                 left: !_switchToHorizontal && _leftSidedOrTop ? 0 : null,
                 top: _switchToHorizontal && _leftSidedOrTop ? 0 : null,
-                child: AlphabetScrollbar(
+                child: 
+                //_________________ALPHABET_SCROLLBAR_______________________________________
+                AlphabetScrollbar(
                     onLetterChange: (value) => setState(() {
                       _letter = value;
                     }),
@@ -125,8 +178,14 @@ class _StateMainApp extends State<MainApp> {
                     leftSidedOrTop: _leftSidedOrTop,
                     factor: _factor,
                     selectedLetterAdditionalSpace: _additional,
-                    padding: EdgeInsets.only(right: 800),
+                    padding: EdgeInsets.only(
+                      right: !_switchToHorizontal &&!_leftSidedOrTop ? _padding : 0.0, 
+                      left: !_switchToHorizontal && _leftSidedOrTop ? _padding : 0.0,
+                      top: _switchToHorizontal && _leftSidedOrTop ? _padding : 0.0,
+                      bottom: _switchToHorizontal && !_leftSidedOrTop ? _padding : 0.0),
+                    selectedLetterColor: Color.fromRGBO(_red, _green, _blue, 1),
                   ),
+                  //___________________________________________________________________________
                 ),
             ],
           ),
