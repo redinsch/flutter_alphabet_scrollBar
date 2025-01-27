@@ -33,7 +33,7 @@ it`s Possible to Change almost Everything.. the Letters that are Used, the Text-
 ## Getting started
 
 ```yaml
-alphabet_scrollbar: ^0.0.5
+alphabet_scrollbar: ^0.0.6
 ```
 
 ```dart

@@ -1,6 +1,6 @@
 name: alphabet_scrollbar
 description: an simple Alphabet-Scrollbar.
-version: 0.0.5
+version: 0.0.6
 repository: https://github.com/redinsch/flutter_alphabet_scrollBar
 
 environment:
