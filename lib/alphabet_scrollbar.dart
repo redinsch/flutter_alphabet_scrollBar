@@ -190,8 +190,7 @@ class _AlphabetScrollbarState extends State<AlphabetScrollbar> {
         }
       }
       alphabetScroll.add(AnimatedContainer(
-        width: widget.style?.fontSize ?? Theme.of(context).textTheme.bodyMedium?.fontSize ?? 10,
-        alignment: Alignment.center,
+        // width: widget.style?.fontSize ?? Theme.of(context).textTheme.bodyMedium?.fontSize ?? 10,
         duration: widget.duration,
         padding: widget.switchToHorizontal && widget.leftSidedOrTop
             ? EdgeInsets.only(top: space.toDouble())
@@ -200,10 +199,13 @@ class _AlphabetScrollbarState extends State<AlphabetScrollbar> {
                 : widget.leftSidedOrTop
                     ? EdgeInsets.only(left: space.toDouble())
                     : EdgeInsets.only(right: space.toDouble()),
-        child: Text(
-          style: selectedLetterStyle,
-          letter,
-          textAlign: TextAlign.center,
+        child: SizedBox(
+          width: widget.style?.fontSize ?? Theme.of(context).textTheme.bodyMedium?.fontSize ?? 10,
+          child: Text(
+            style: selectedLetterStyle,
+            letter,
+            textAlign: TextAlign.center,
+          ),
         ),
       ));
     }
