@@ -190,6 +190,8 @@ class _AlphabetScrollbarState extends State<AlphabetScrollbar> {
         }
       }
       alphabetScroll.add(AnimatedContainer(
+        width: widget.style?.fontSize ?? Theme.of(context).textTheme.bodyMedium?.fontSize ?? 10,
+        alignment: Alignment.center,
         duration: widget.duration,
         padding: widget.switchToHorizontal && widget.leftSidedOrTop
             ? EdgeInsets.only(top: space.toDouble())
