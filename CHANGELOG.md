@@ -10,3 +10,6 @@ Smoother Sinus Scroll-Animation
 
 ## 0.0.4
 added LiveDemo-Link to Readme
+
+## 0.0.6
+fixed vertical letter-alignment
