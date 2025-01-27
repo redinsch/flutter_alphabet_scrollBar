@@ -11,6 +11,6 @@ on:
 jobs:
   publish:
      uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
-     with: 
-        args: --skip-validations
+    #  with: 
+    #     args: --skip-validations
      
