@@ -13,3 +13,6 @@ added LiveDemo-Link to Readme
 
 ## 0.0.7
 fixed vertical letter-alignment
+
+## 0.0.8
+Improved OnLetterChange Invoking
