@@ -21,4 +21,5 @@ Improved OnLetterChange Invoking
 Implemented additional Styling features
 to make scrollbar even more customizable
 
-Also fixed Letters not updating bug.
+## 0.1.0
+Fixed Letters not updating bug.
