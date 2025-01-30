@@ -86,13 +86,9 @@ class _AlphabetScrollbarState extends State<AlphabetScrollbar> {
   double itemSize = 0.0;
 
   @override
-  void initState() {
-    super.initState();
-    _alphabet = widget.letterCollection ?? _alphabet;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    _alphabet = widget.letterCollection ?? _alphabet;
+
     return GestureDetector(
         behavior: HitTestBehavior
             .opaque, // => This dissables Hit-Detection of elements behind..
