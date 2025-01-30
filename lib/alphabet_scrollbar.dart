@@ -10,6 +10,7 @@ class AlphabetScrollbar extends StatefulWidget {
       this.selectedLetterColor = Colors.red,
       required this.onLetterChange,
       this.style,
+      this.selectedLetterSize,
       this.padding,
       this.leftSidedOrTop = false,
       this.switchToHorizontal = false,
@@ -18,11 +19,17 @@ class AlphabetScrollbar extends StatefulWidget {
       this.selectedLetterAdditionalSpace = 15,
       this.duration = const Duration(milliseconds: 200),
       this.letterCollection,
-      this.halfSinWaveLength = 6});
+      this.halfSinWaveLength = 6,
+      this.letterContainerDecoration =
+          const BoxDecoration(shape: BoxShape.circle),
+      this.letterContainerPadding = const EdgeInsets.all(0),
+      this.selectedLetterContainerDecoration,
+      this.selectedLettercontainerPadding});
 
-  final Color selectedLetterColor;
   final Function(String) onLetterChange;
   final TextStyle? style;
+  final double? selectedLetterSize;
+  final Color selectedLetterColor;
   final EdgeInsets? padding;
   final bool leftSidedOrTop;
   final bool switchToHorizontal;
@@ -32,6 +39,10 @@ class AlphabetScrollbar extends StatefulWidget {
   final Duration duration;
   final List<String>? letterCollection;
   final int halfSinWaveLength;
+  final Decoration letterContainerDecoration;
+  final EdgeInsets letterContainerPadding;
+  final Decoration? selectedLetterContainerDecoration;
+  final EdgeInsets? selectedLettercontainerPadding;
 
   @override
   State<StatefulWidget> createState() => _AlphabetScrollbarState();
@@ -83,79 +94,81 @@ class _AlphabetScrollbarState extends State<AlphabetScrollbar> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      behavior: HitTestBehavior
-          .opaque, // => This dissables Hit-Detection of elements behind..
-      //OnTab,notDrag..
-      onTapDown: widget.switchToHorizontal 
-          ? (details) => {
-            _alphabetScrollActive = true,
-            _onDragUpdate(dx: details.localPosition.dx)
-          } 
-          : (details) => {
-            _alphabetScrollActive = true,
-            _onDragUpdate(dy: details.localPosition.dy)
-          },
-      onTapUp: (details) => {
-                setState(() {
-                  _alphabetScrollActive = false;
-                  _alphabetIndex = null;
-                })
-              },
-      //Vertically
-      onVerticalDragStart: widget.switchToHorizontal
-          ? null
-          : (details) => {
-                _alphabetScrollActive = true,
-                _onDragUpdate(dy: details.localPosition.dy)
-              },
-      onVerticalDragEnd: widget.switchToHorizontal
-          ? null
-          : (details) => {
-                setState(() {
-                  _alphabetScrollActive = false;
-                  _alphabetIndex = null;
-                })
-              },
-      onVerticalDragUpdate: widget.switchToHorizontal
-          ? null
-          : (DragUpdateDetails dragUpdateDetails) =>
-              _onDragUpdate(dy: dragUpdateDetails.localPosition.dy),
-      //Horizontaly
-      onHorizontalDragStart: !widget.switchToHorizontal
-          ? null
-          : (details) => {
-                _alphabetScrollActive = true,
-                _onDragUpdate(dx: details.localPosition.dx)
-              },
-      onHorizontalDragEnd: !widget.switchToHorizontal
-          ? null
-          : (details) => {
-                setState(() {
-                  _alphabetScrollActive = false;
-                  _alphabetIndex = null;
-                })
-              },
-      onHorizontalDragUpdate: !widget.switchToHorizontal
-          ? null
-          : (DragUpdateDetails dragUpdateDetails) =>
-              _onDragUpdate(dx: dragUpdateDetails.localPosition.dx),
-      child: Padding(padding: widget.padding ?? const EdgeInsets.all(0) ,child: widget.switchToHorizontal
-          ? Row(
-              key: _alphabetContainerKey,
-              crossAxisAlignment: widget.leftSidedOrTop
-                  ? CrossAxisAlignment.start
-                  : CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: _getAlphabetScroll())
-          : Column(
-              key: _alphabetContainerKey,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: widget.leftSidedOrTop
-                  ? CrossAxisAlignment.start
-                  : CrossAxisAlignment.end,
-              children: _getAlphabetScroll(),
-            ),)
-    );
+        behavior: HitTestBehavior
+            .opaque, // => This dissables Hit-Detection of elements behind..
+        //OnTab,notDrag..
+        onTapDown: widget.switchToHorizontal
+            ? (details) => {
+                  _alphabetScrollActive = true,
+                  _onDragUpdate(dx: details.localPosition.dx)
+                }
+            : (details) => {
+                  _alphabetScrollActive = true,
+                  _onDragUpdate(dy: details.localPosition.dy)
+                },
+        onTapUp: (details) => {
+              setState(() {
+                _alphabetScrollActive = false;
+                _alphabetIndex = null;
+              })
+            },
+        //Vertically
+        onVerticalDragStart: widget.switchToHorizontal
+            ? null
+            : (details) => {
+                  _alphabetScrollActive = true,
+                  _onDragUpdate(dy: details.localPosition.dy)
+                },
+        onVerticalDragEnd: widget.switchToHorizontal
+            ? null
+            : (details) => {
+                  setState(() {
+                    _alphabetScrollActive = false;
+                    _alphabetIndex = null;
+                  })
+                },
+        onVerticalDragUpdate: widget.switchToHorizontal
+            ? null
+            : (DragUpdateDetails dragUpdateDetails) =>
+                _onDragUpdate(dy: dragUpdateDetails.localPosition.dy),
+        //Horizontaly
+        onHorizontalDragStart: !widget.switchToHorizontal
+            ? null
+            : (details) => {
+                  _alphabetScrollActive = true,
+                  _onDragUpdate(dx: details.localPosition.dx)
+                },
+        onHorizontalDragEnd: !widget.switchToHorizontal
+            ? null
+            : (details) => {
+                  setState(() {
+                    _alphabetScrollActive = false;
+                    _alphabetIndex = null;
+                  })
+                },
+        onHorizontalDragUpdate: !widget.switchToHorizontal
+            ? null
+            : (DragUpdateDetails dragUpdateDetails) =>
+                _onDragUpdate(dx: dragUpdateDetails.localPosition.dx),
+        child: Padding(
+          padding: widget.padding ?? const EdgeInsets.all(0),
+          child: widget.switchToHorizontal
+              ? Row(
+                  key: _alphabetContainerKey,
+                  crossAxisAlignment: widget.leftSidedOrTop
+                      ? CrossAxisAlignment.start
+                      : CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: _getAlphabetScroll())
+              : Column(
+                  key: _alphabetContainerKey,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: widget.leftSidedOrTop
+                      ? CrossAxisAlignment.start
+                      : CrossAxisAlignment.end,
+                  children: _getAlphabetScroll(),
+                ),
+        ));
   }
 
   List<Widget> _getAlphabetScroll() {
@@ -167,11 +180,14 @@ class _AlphabetScrollbarState extends State<AlphabetScrollbar> {
     for (var letter in alphabetValues) {
       var indexOfLetter = alphabetValues.indexOf(letter);
       num space = 0;
-      TextStyle? selectedLetterStyle = widget.style;
+      TextStyle? currentLetterStyle = widget.style ?? Theme.of(context).textTheme.bodyMedium;
+      Decoration? currentLetterContainerDecoration =
+          widget.letterContainerDecoration;
+      EdgeInsets? currentLetterContainerPadding = widget.letterContainerPadding;
+
       if (_alphabetScrollActive &&
           indexOfLetter >= _alphabetIndex! - widget.halfSinWaveLength &&
           indexOfLetter <= _alphabetIndex! + widget.halfSinWaveLength) {
-
         var relativeIndex =
             ((_alphabetIndex! - widget.halfSinWaveLength) * (-1)) +
                 indexOfLetter;
@@ -184,13 +200,21 @@ class _AlphabetScrollbarState extends State<AlphabetScrollbar> {
         space = space * widget.factor;
         if (indexOfLetter == _alphabetIndex) {
           space = space + widget.selectedLetterAdditionalSpace;
-          selectedLetterStyle = selectedLetterStyle?.copyWith(
-                  color: widget.selectedLetterColor) ??
-              TextStyle(color: widget.selectedLetterColor);
+          currentLetterStyle = currentLetterStyle?.copyWith(
+                  color: widget.selectedLetterColor,
+                  fontSize: widget.selectedLetterSize) ??
+              TextStyle(
+                  color: widget.selectedLetterColor,
+                  fontSize: widget.selectedLetterSize);
+          currentLetterContainerPadding =
+              widget.selectedLettercontainerPadding ??
+                  widget.letterContainerPadding;
+          currentLetterContainerDecoration =
+              widget.selectedLetterContainerDecoration ??
+                  widget.letterContainerDecoration;
         }
       }
       alphabetScroll.add(AnimatedContainer(
-        // width: widget.style?.fontSize ?? Theme.of(context).textTheme.bodyMedium?.fontSize ?? 10,
         duration: widget.duration,
         padding: widget.switchToHorizontal && widget.leftSidedOrTop
             ? EdgeInsets.only(top: space.toDouble())
@@ -199,12 +223,26 @@ class _AlphabetScrollbarState extends State<AlphabetScrollbar> {
                 : widget.leftSidedOrTop
                     ? EdgeInsets.only(left: space.toDouble())
                     : EdgeInsets.only(right: space.toDouble()),
-        child: SizedBox(
-          width: widget.style?.fontSize ?? Theme.of(context).textTheme.bodyMedium?.fontSize ?? 10,
-          child: Text(
-            style: selectedLetterStyle,
-            letter,
-            textAlign: TextAlign.center,
+        child: AnimatedContainer(
+          duration: widget.duration,
+          padding: currentLetterContainerPadding,
+          decoration: currentLetterContainerDecoration,
+          child: AnimatedContainer(
+            duration: widget.duration,
+            curve: Curves.easeInOut,
+            width: currentLetterStyle?.fontSize ??
+                Theme.of(context).textTheme.bodyMedium?.fontSize ??
+                10,
+            child: AnimatedDefaultTextStyle(
+              curve: Curves.easeInOut,
+              duration: widget.duration,
+              style: currentLetterStyle!,
+              child: Text(
+                // style: currentLetterStyle,
+                letter,
+                textAlign: TextAlign.center,
+              ),
+            ),
           ),
         ),
       ));
@@ -233,8 +271,8 @@ class _AlphabetScrollbarState extends State<AlphabetScrollbar> {
         : (dy! / oneItemSize).floor();
     if (index < 0) {
       return 0;
-    } else if (index > _alphabet.length) {
-      return _alphabet.length;
+    } else if (index > _alphabet.length -1) {
+      return _alphabet.length - 1;
     }
     return index;
   }
@@ -250,7 +288,7 @@ class _AlphabetScrollbarState extends State<AlphabetScrollbar> {
   void _onDragUpdate({double? dy, double? dx}) {
     var alphabetIndex = _getAlphabetIndexFromDy(dy: dy, dx: dx);
 
-    if(_alphabetIndex != null && alphabetIndex == _alphabetIndex){
+    if (_alphabetIndex != null && alphabetIndex == _alphabetIndex) {
       return;
     }
 
@@ -258,7 +296,7 @@ class _AlphabetScrollbarState extends State<AlphabetScrollbar> {
       _alphabetIndex = alphabetIndex;
       this.dy = dy ?? dx!;
     });
-    
+
     widget.onLetterChange(_getLetterByAlphabetID(alphabetIndex));
   }
 }

@@ -16,3 +16,7 @@ fixed vertical letter-alignment
 
 ## 0.0.8
 Improved OnLetterChange Invoking
+
+## 0.0.9
+Implemented additional Styling features
+to make scrollbar even more customizable
